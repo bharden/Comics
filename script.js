@@ -1,3 +1,4 @@
+
 Vue.component('star-rating', VueStarRating.default);
 let app = new Vue({
   el: '#app',
@@ -13,6 +14,8 @@ let app = new Vue({
     addedName: '',
     addedComment: '',
     comments: {},
+    ratings: {},
+    addedDate: '',
   },
   created() {
     this.xkcd();
@@ -96,13 +99,24 @@ let app = new Vue({
         Vue.set(app.comments, this.number, new Array);
         this.comments[this.number].push({
         author: this.addedName,
-        text: this.addedComment
+        text: this.addedComment,
+        date: (moment().format('MMMM Do YYYY, h:mm:ss a')),
       });
       this.addedName = '';
       this.addedComment = '';
+      this.addedDate = '';
     },
     setRating(rating){
-      this.rating= 0;
+      if (!(this.number in this.ratings))
+        Vue.set(this.ratings, this.number, {
+          sum: 0,
+          total: 0
+        });
+      this.ratings[this.number].sum += ratings;
+      this.ratings[this.number].total += 1;
     },
+    // showCurrentRating(rating) {
+    //   this.currentRating = (rating === 0) ? this.currentSelectedRating : "Click to select " + rating + " stars"
+    // },
   }
 });

@@ -24,7 +24,10 @@
       <h2>{{current.safe_title}}</h2>
       <img v-bind:src="current.img" v-bind:alt="current.alt">
       <p>{{current.alt}}</p>
-    <p><i>#{{current.num}}, drawn on {{current.day}} {{month}} {{current.year}}</i></p>
+      <p><i>#{{current.num}}, drawn on {{current.day}} {{month}} {{current.year}}</i></p>
+      <div class="star">
+      <star-rating @rating-selected ="setRating" v-bind:increment="0.5" active-color="#9c0000">
+      </div>
       <h3>Add a Comment</h3>
      <form v-on:submit.prevent="addComment">
        <input v-model="addedName" placeholder="Name"></p>
@@ -37,14 +40,16 @@
        <hr>
        <p>{{comment.text}}</p>
        <p><i>-- {{comment.author}}</i></p>
+       <p>{{comment.date}}</p>
      </div>
     </div>
   </div>
-  <star-rating @rating-selected ="setRating"></star-rating>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="https://unpkg.com/vue-star-rating/dist/star-rating.min.js"></script>
+  <script src="moment.js"></script>
   <script src="script.js"></script>
+
 </body>
 
 </html>
